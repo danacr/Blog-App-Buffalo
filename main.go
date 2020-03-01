@@ -6,7 +6,7 @@ import (
 	"github.com/mikaelm1/Blog-App-Buffalo/actions"
 )
 
-func originalMain() {
+func main() {
 	app := actions.App()
 	if err := app.Serve(); err != nil {
 		log.Fatal(err)
