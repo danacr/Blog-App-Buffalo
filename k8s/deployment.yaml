@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: survivor
 spec:
+  replicas: 15
   selector:
     matchLabels:
       app: survivor
