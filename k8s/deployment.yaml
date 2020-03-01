@@ -16,7 +16,7 @@ spec:
           envFrom:
             - secretRef:
                 name: config
-          image: eu.gcr.io/kill-the-cluster/survivor:stable
+          image: eu.gcr.io/kill-the-cluster/survivor:stable3
           imagePullPolicy: IfNotPresent
           resources:
             limits:

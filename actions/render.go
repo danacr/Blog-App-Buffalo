@@ -23,9 +23,6 @@ func init() {
 
 		// Add template helpers here:
 		Helpers: render.Helpers{
-			"csrf": func() template.HTML {
-				return template.HTML("<input name=\"authenticity_token\" value=\"<%= authenticity_token %>\" type=\"hidden\">")
-			},
 			"markdown2": func(content string) template.HTML {
 				output := blackfriday.Run([]byte(content), blackfriday.WithExtensions(blackfriday.CommonExtensions))
 				html := bluemonday.UGCPolicy().SanitizeBytes(output)

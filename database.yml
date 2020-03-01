@@ -1,9 +1,6 @@
 development:
   dialect: postgres
-  database: blog
-  user: postgres
-  password: mysecretpassword
-  host: 127.0.0.1
+  url: {{envOr "DATABASE_URL" "postgres://postgres:postgres@127.0.0.1:5432/myapp_production"}}
   pool: 5
 
 production:
