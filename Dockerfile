@@ -1,32 +1,21 @@
-# This is a multi-stage Dockerfile and requires >= Docker 17.05
-# https://docs.docker.com/engine/userguide/eng-image/multistage-build/
-FROM gobuffalo/buffalo:v0.15.5 as builder
+FROM gobuffalo/buffalo:development as builder
 
-RUN mkdir -p $GOPATH/src/github.com/mikaelm1/Blog-App-Buffalo
-WORKDIR $GOPATH/src/github.com/mikaelm1/Blog-App-Buffalo
+RUN go version
+RUN which go
+RUN echo $PATH
+ENV GOPROXY="https://proxy.golang.org"
+ENV GO111MODULE="on"
 
 # this will cache the npm install step, unless package.json changes
 ADD package.json .
 ADD yarn.lock .
 RUN yarn install --no-progress
 ADD . .
-ENV GOPROXY="https://proxy.golang.org"
-ENV GO111MODULE="on"
-RUN buffalo build --static -o /bin/app
+RUN buffalo build --static -o /bin/app -v --skip-template-validation
 
-FROM alpine
-RUN apk add --no-cache bash
-RUN apk add --no-cache ca-certificates
-
-# Comment out to run the binary in "production" mode:
-# ENV GO_ENV=production
-
-WORKDIR /bin/
-
+FROM gcr.io/distroless/static:nonroot
+WORKDIR /
 COPY --from=builder /bin/app .
-
+ENV ADDR=0.0.0.0
 EXPOSE 3000
-
-# Comment out to run the migrations before running the binary:
-# CMD /bin/app migrate; /bin/app
-CMD exec /bin/app
+ENTRYPOINT ["/app"]

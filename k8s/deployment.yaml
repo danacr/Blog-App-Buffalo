@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: survivor
+spec:
+  selector:
+    matchLabels:
+      app: survivor
+  template:
+    metadata:
+      labels:
+        app: survivor
+    spec:
+      containers:
+        - name: survivor
+          envFrom:
+            - secretRef:
+                name: config
+          image: eu.gcr.io/kill-the-cluster/survivor:stable
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              memory: "64Mi"
+              cpu: "100m"
+          ports:
+            - containerPort: 3000
