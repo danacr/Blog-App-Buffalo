@@ -2,7 +2,7 @@
 
 Survivor is a simple [Go Blog](https://github.com/mikaelm1/Blog-App-Buffalo) built using [buffalo](https://github.com/gobuffalo/buffalo)
 
-I chose to fork and use this project because it Buffalo which allows me to create 27Mb docker images which contain all of the application assets.
+I chose to fork and use this project because of Buffalo, which allows me to create 27Mb docker images that contain all of the application assets.
 
 ```yaml
 apiVersion: apps/v1
